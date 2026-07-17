@@ -11,6 +11,10 @@
   --font-serif: 'Cormorant Garamond', serif;
 }
 
+html {
+  font-size: 20px; /* Scales up all 'rem' based fonts globally (default is 16px) */
+}
+
 * {
   margin: 0;
   padding: 0;
