@@ -1,0 +1,195 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+/* Remete ao bastidor de bordado */
+.hoop-frame {
+  background-color: var(--hoop-bg);
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  border: 14px solid #C4A484; /* Wood color */
+  border-radius: 50%;
+  width: 90vw;
+  height: 90vw;
+  max-width: 550px;
+  max-height: 550px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.05), 0 15px 35px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+@media (max-width: 600px) {
+  .hoop-frame {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    padding: 1.5rem;
+  }
+}
+
+.floral-top, .floral-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.floral-top svg, .floral-bottom svg {
+  max-width: 60%; /* Keeps the flowers further inside the circle */
+  height: auto;
+}
+
+.floral-top {
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+}
+
+.floral-bottom {
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.quote-container {
+  text-align: center;
+  max-width: 80%;
+}
+
+.bible-verse {
+  font-size: 1.1rem;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+.verse-ref {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.couple-names {
+  font-family: var(--font-cursive);
+  font-size: 4rem;
+  color: var(--text-dark);
+  line-height: 1.2;
+  text-align: center;
+  margin: 1rem 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Slight shadow to mimic embroidery thread */
+}
+
+@media (max-width: 450px) {
+  .couple-names {
+    font-size: 2.2rem;
+  }
+  .bible-verse {
+    font-size: 0.85rem;
+  }
+  .floral-top, .floral-bottom {
+    font-size: 1.2rem;
+  }
+  .wedding-date {
+    font-size: 1.1rem;
+  }
+}
+
+.date-container {
+  text-align: center;
+}
+
+.wedding-date {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-dark);
+}
+
+/* Layout and Sections */
+.container {
+  width: 92%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.details-section, .location-section, .rsvp-section {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  margin-bottom: 2rem;
+  border: 1px solid rgba(210, 180, 140, 0.2);
+}
+
+.details-section h2, .location-section h2, .rsvp-section h2 {
+  font-family: var(--font-cursive);
+  font-size: 2.5rem;
+  color: var(--accent-pink);
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .details-section, .location-section, .rsvp-section {
+    padding: 1.5rem;
+  }
+  .details-section h2, .location-section h2, .rsvp-section h2 {
+    font-size: 2rem;
+  }
+}
+
+/* App.css additions */
+.petals-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* Let clicks pass through */
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.petal-wrapper {
+  position: absolute;
+  top: -10vh;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.falling-petal {
+  background: radial-gradient(circle at 30% 30%, #fff0f3, #ffb3c6);
+  border-radius: 50% 0 50% 0; /* Petal shape */
+  opacity: 0.8;
+  animation-name: sway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 3s; 
+  box-shadow: 0 0 4px rgba(255, 179, 198, 0.4);
+}
+
+@keyframes fall {
+  0% { top: -10vh; }
+  100% { top: 110vh; }
+}
+
+@keyframes sway {
+  0% { transform: translateX(-20px) rotate(0deg); }
+  100% { transform: translateX(20px) rotate(180deg); }
+}
