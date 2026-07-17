@@ -1,74 +1,97 @@
 import React from 'react';
 import './App.css';
 
-const Blossom = ({ x, y, scale = 1, rotate = 0, dark = false }) => {
-  const fill = dark ? "url(#petalDarkGrad)" : "url(#petalGrad)";
-  return (
-    <g transform={`translate(${x}, ${y}) scale(${scale}) rotate(${rotate})`}>
-      {/* 5 Petals */}
-      {[0, 72, 144, 216, 288].map((angle, i) => (
-        <path key={`p${i}`} transform={`rotate(${angle})`} d="M 0 0 C -10 -15, -12 -25, -2 -24 L 0 -20 L 2 -24 C 12 -25, 10 -15, 0 0 Z" fill={fill} opacity="0.9" />
-      ))}
-      {/* Center stamens */}
-      <circle cx="0" cy="0" r="3" fill="#fb6f92" />
-      <circle cx="0" cy="0" r="1.5" fill="#5c4d4d" />
-      {[0, 72, 144, 216, 288].map((angle, i) => (
-        <line key={`l${i}`} x1="0" y1="0" x2="0" y2="-8" stroke="#fb6f92" strokeWidth="0.5" transform={`rotate(${angle + 36})`} />
-      ))}
-      {[0, 72, 144, 216, 288].map((angle, i) => (
-        <circle key={`c${i}`} cx="0" cy="-8" r="1" fill="#5c4d4d" transform={`rotate(${angle + 36})`} />
-      ))}
-    </g>
-  );
-};
-
-const Bud = ({ x, y, scale = 1, rotate = 0 }) => (
-  <g transform={`translate(${x}, ${y}) scale(${scale}) rotate(${rotate})`}>
-    <path d="M 0 0 C -5 -5, -8 -12, 0 -15 C 8 -12, 5 -5, 0 0 Z" fill="url(#petalDarkGrad)" />
-    <path d="M -3 -2 C -5 -5, 0 -8, 0 -8 C 0 -8, 5 -5, 3 -2 Z" fill="#5c4d4d" stroke="#5c4d4d" strokeWidth="1" />
+const Rose = ({ x, y, scale = 1, rotate = 0, opacity = 1 }) => (
+  <g transform={`translate(${x}, ${y}) scale(${scale}) rotate(${rotate})`} opacity={opacity}>
+    <circle cx="0" cy="0" r="35" fill="url(#roseGrad1)" />
+    <path d="M-10,25 C-30,20 -35,-5 -20,-20 C-5,-35 25,-30 30,-10 C35,10 20,30 -10,25 Z" fill="url(#roseGrad2)" />
+    <path d="M15,-15 C30,-5 25,20 5,25 C-15,30 -25,5 -10,-10 Z" fill="url(#roseGrad3)" />
+    <path d="M-5,-10 C-15,-20 10,-25 20,-10 C30,5 5,25 -5,-10 Z" fill="url(#roseGrad1)" />
+    <path d="M0,10 C15,15 20,-5 5,-15 C-10,-25 -15,5 0,10 Z" fill="url(#roseGrad2)" />
+    <path d="M-5,5 C-10,-5 5,-10 10,0 C15,10 -5,15 -5,5 Z" fill="url(#roseGrad3)" />
+    <path d="M-20,-20 Q-5,-10 -10,25" fill="none" stroke="#fcf6f5" strokeWidth="1.5" opacity="0.5" />
+    <path d="M30,-10 Q10,0 5,25" fill="none" stroke="#fcf6f5" strokeWidth="1.5" opacity="0.5" />
+    <path d="M-10,-10 Q5,-5 20,-10" fill="none" stroke="#fcf6f5" strokeWidth="1" opacity="0.5" />
+    <path d="M0,10 Q5,5 5,-15" fill="none" stroke="#fcf6f5" strokeWidth="1" opacity="0.5" />
   </g>
 );
 
-const CherryBlossomSVG = ({ flip = false }) => {
-  const transform = flip ? "rotate(180deg)" : "";
+const Leaf = ({ x, y, scale = 1, rotate = 0, color = "#bcc1b4" }) => (
+  <g transform={`translate(${x}, ${y}) scale(${scale}) rotate(${rotate})`}>
+    <path d="M 0 0 C 10 -20, 30 -30, 45 -45 C 45 -30, 25 -10, 0 0 Z" fill={color} />
+  </g>
+);
+
+const RoundLeaf = ({ x, y, scale = 1, rotate = 0 }) => (
+  <g transform={`translate(${x}, ${y}) scale(${scale}) rotate(${rotate})`}>
+    <path d="M 0 0 C 15 -10, 20 -25, 30 -30 C 35 -15, 20 0, 0 0 Z" fill="#d6c6b9" />
+  </g>
+);
+
+const Branch = ({ x, y, scale = 1, rotate = 0 }) => (
+  <g transform={`translate(${x}, ${y}) scale(${scale}) rotate(${rotate})`}>
+    <path d="M 0 0 Q 30 -10 60 5" fill="none" stroke="#8d8177" strokeWidth="1.5" />
+    <circle cx="20" cy="-6" r="3" fill="#d9baa7" />
+    <circle cx="40" cy="-2" r="2.5" fill="#d9baa7" />
+    <circle cx="60" cy="5" r="2.5" fill="#d9baa7" />
+    <circle cx="30" cy="2" r="2" fill="#d9baa7" />
+  </g>
+);
+
+const RoseCorner = ({ className, style }) => {
   return (
-    <svg width="320" height="90" viewBox="0 0 320 90" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ transform, transition: 'all 0.3s ease' }}>
+    <svg width="400" height="400" viewBox="0 0 400 400" fill="none" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="petalGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#fff0f3" />
-          <stop offset="60%" stopColor="#ffb3c6" />
-          <stop offset="100%" stopColor="#ff8fab" />
+        <radialGradient id="roseGrad1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#f3e8e8" />
+          <stop offset="100%" stopColor="#e5d0d2" />
         </radialGradient>
-        <radialGradient id="petalDarkGrad" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#ffb3c6" />
-          <stop offset="100%" stopColor="#fb6f92" />
+        <radialGradient id="roseGrad2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#e5d0d2" />
+          <stop offset="100%" stopColor="#d5b5b8" />
+        </radialGradient>
+        <radialGradient id="roseGrad3" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#d5b5b8" />
+          <stop offset="100%" stopColor="#c5999c" />
         </radialGradient>
       </defs>
 
-      {/* Main branch */}
-      <path d="M 10 75 Q 160 -20 310 75" stroke="#4a3b3b" strokeWidth="2" fill="none" strokeLinecap="round" />
-      {/* Sub branches */}
-      <path d="M 85 39 Q 70 25 50 20" stroke="#4a3b3b" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <path d="M 120 32 Q 130 10 150 5" stroke="#4a3b3b" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      <path d="M 235 39 Q 250 25 270 20" stroke="#4a3b3b" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-      
-      {/* Buds */}
-      <Bud x={50} y={20} scale={0.7} rotate={-45} />
-      <Bud x={150} y={5} scale={0.8} rotate={15} />
-      <Bud x={270} y={20} scale={0.7} rotate={45} />
-      <Bud x={100} y={35} scale={0.6} rotate={-20} />
-      <Bud x={200} y={35} scale={0.6} rotate={20} />
-      <Bud x={285} y={60} scale={0.5} rotate={60} />
-      <Bud x={35} y={60} scale={0.5} rotate={-60} />
+      {/* Watercolor blobs */}
+      <path d="M 0 0 L 350 0 Q 200 200 0 350 Z" fill="#fdf8f6" opacity="0.8" />
+      <path d="M 0 0 L 250 0 Q 150 150 0 250 Z" fill="#fae8e5" opacity="0.5" />
 
-      {/* Flowers */}
-      <Blossom x={85} y={39} scale={0.8} rotate={15} />
-      <Blossom x={120} y={32} scale={0.9} rotate={-10} dark={true} />
-      <Blossom x={160} y={27} scale={1.2} rotate={5} />
-      <Blossom x={190} y={30} scale={0.9} rotate={25} />
-      <Blossom x={235} y={39} scale={0.8} rotate={-15} dark={true} />
-      <Blossom x={265} y={51} scale={0.7} rotate={10} />
-      <Blossom x={55} y={51} scale={0.7} rotate={-30} />
+      {/* Stems and Branches */}
+      <path d="M 0 0 Q 150 50 300 120" stroke="#a79e95" strokeWidth="2" fill="none" />
+      <path d="M 0 0 Q 50 150 120 300" stroke="#a79e95" strokeWidth="2" fill="none" />
+      
+      {/* Background leaves */}
+      <Leaf x={100} y={40} scale={1.5} rotate={20} color="#bac1b5" />
+      <Leaf x={150} y={80} scale={1.2} rotate={45} color="#d4ccb8" />
+      <Leaf x={250} y={100} scale={1.3} rotate={70} color="#90998f" />
+      
+      <Leaf x={40} y={100} scale={1.5} rotate={70} color="#bac1b5" />
+      <Leaf x={80} y={150} scale={1.2} rotate={100} color="#d4ccb8" />
+      <Leaf x={100} y={250} scale={1.3} rotate={140} color="#90998f" />
+
+      {/* Berries */}
+      <Branch x={180} y={50} scale={1.2} rotate={10} />
+      <Branch x={220} y={100} scale={1} rotate={40} />
+      
+      <Branch x={50} y={180} scale={1.2} rotate={70} />
+      <Branch x={100} y={220} scale={1} rotate={120} />
+
+      {/* Foreground Roses */}
+      <Rose x={50} y={50} scale={1.8} rotate={15} />
+      <Rose x={180} y={30} scale={1.4} rotate={-30} />
+      <Rose x={280} y={110} scale={1.2} rotate={45} />
+      
+      <Rose x={30} y={180} scale={1.4} rotate={60} />
+      <Rose x={110} y={280} scale={1.2} rotate={80} />
+      
+      {/* Extra floating petals / mini flowers */}
+      <RoundLeaf x={240} y={50} scale={1} rotate={-10} />
+      <RoundLeaf x={50} y={240} scale={1} rotate={80} />
+      <RoundLeaf x={120} y={140} scale={0.8} rotate={40} />
     </svg>
   );
 };
@@ -112,11 +135,12 @@ function App() {
     <div className="app-container">
       <FallingPetals />
       <header className="hero-section">
-        <div className="hoop-frame">
-          <div className="floral-top">
-            <CherryBlossomSVG />
-          </div>
-          
+        <RoseCorner className="corner-top-left" />
+        <RoseCorner className="corner-top-right" style={{transform: 'scaleX(-1)'}} />
+        <RoseCorner className="corner-bottom-left" style={{transform: 'scaleY(-1)'}} />
+        <RoseCorner className="corner-bottom-right" style={{transform: 'scale(-1, -1)'}} />
+        
+        <div className="hero-content">
           <div className="quote-container mb-4 mt-4">
             <p className="bible-verse">
               "Para que todos vejam,<br />
@@ -131,10 +155,6 @@ function App() {
 
           <div className="date-container mb-4">
             <p className="wedding-date">31 . 07 . 2026</p>
-          </div>
-
-          <div className="floral-bottom">
-            <CherryBlossomSVG flip={true} />
           </div>
         </div>
       </header>
